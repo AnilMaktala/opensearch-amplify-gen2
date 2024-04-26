@@ -14,8 +14,34 @@ const schema = a.schema({
       priority: a.enum(["low", "medium", "high"]),
     })
     .authorization([a.allow.public()]),
-  //searchTodos2: a.query().returns(a.json()),
-  searchTodos3: a.query().returns(a.ref("Todo").array()),
+  Todo1: a
+    .model({
+      content: a.string(),
+      done: a.boolean(),
+      priority: a.enum(["low", "medium", "high"]),
+    })
+    .authorization([a.allow.public()]),
+  // searchTodos2: a.query().returns(a.ref("Todo").array()),
+  searchTodos5: a
+    .query()
+    .returns(a.ref("Todo").array())
+    .authorization([a.allow.public()])
+    .handler(
+      a.handler.custom({
+        entry: "./searchBlogResolver.js",
+        dataSource: "osDataSource",
+      })
+    ),
+  searchTodos1: a
+    .query()
+    .returns(a.ref("Todo").array())
+    .authorization([a.allow.public()])
+    .handler(
+      a.handler.custom({
+        entry: "./searchBlogResolver1.js",
+        dataSource: "osDataSource",
+      })
+    ),
 });
 
 export type Schema = ClientSchema<typeof schema>;
