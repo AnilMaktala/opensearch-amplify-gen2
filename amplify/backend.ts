@@ -5,17 +5,17 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as opensearch from "aws-cdk-lib/aws-opensearchservice";
 
 import * as osis from "aws-cdk-lib/aws-osis";
-import * as s3 from "aws-cdk-lib/aws-s3";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as logs from "aws-cdk-lib/aws-logs";
 import { RemovalPolicy } from "aws-cdk-lib";
 
 import { Stack } from "aws-cdk-lib";
-
+import { storage } from "./storage/resource";
 // Define backend resources
 const backend = defineBackend({
   auth,
   data,
+  storage,
 });
 
 // Get the data stack
@@ -49,19 +49,22 @@ const openSearchDomain = new opensearch.Domain(
   }
 );
 
+const s3BucketArn = backend.storage.resources.bucket.bucketArn;
+const s3BucketName = backend.storage.resources.bucket.bucketName;
+
 // // Create an S3 bucket for OpenSearch backup
-const s3BackupBucket = new s3.Bucket(
-  openSearchStack,
-  "OpenSearchBackupBucketAmplifyGen2",
-  {
-    blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-    bucketName: "opensearch-backup-bucket-amplify-gen-2-test1",
-    enforceSSL: true,
-    versioned: true,
-    autoDeleteObjects: true,
-    removalPolicy: RemovalPolicy.DESTROY,
-  }
-);
+// const s3BackupBucket = new s3.Bucket(
+//   openSearchStack,
+//   "OpenSearchBackupBucketAmplifyGen2",
+//   {
+//     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+//     bucketName: "opensearch-backup-bucket-amplify-gen-2-test1",
+//     enforceSSL: true,
+//     versioned: true,
+//     autoDeleteObjects: true,
+//     removalPolicy: RemovalPolicy.DESTROY,
+//   }
+// );
 
 // Create an IAM role for OpenSearch integration
 const openSearchIntegrationPipelineRole = new iam.Role(
@@ -96,10 +99,7 @@ const openSearchIntegrationPipelineRole = new iam.Role(
               "s3:PutObject",
               "s3:PutObjectAcl",
             ],
-            resources: [
-              s3BackupBucket.bucketArn,
-              s3BackupBucket.bucketArn + "/*",
-            ],
+            resources: [s3BucketArn, s3BucketArn + "/*"],
           }),
           new iam.PolicyStatement({
             effect: iam.Effect.ALLOW,
@@ -159,7 +159,7 @@ dynamodb-pipeline:
           stream:
             start_position: "LATEST"
           export:
-            s3_bucket: "${s3BackupBucket.bucketName}"
+            s3_bucket: "${s3BucketName}"
             s3_region: "us-east-2"
             s3_prefix: "${tableName}/"
       aws:
@@ -197,7 +197,7 @@ const cfnPipeline = new osis.CfnPipeline(
     maxUnits: 4,
     minUnits: 1,
     pipelineConfigurationBody: openSearchTemplate,
-    pipelineName: "dynamodb-integration-2",
+    pipelineName: "dynamodb-integration-3",
     logPublishingOptions: {
       isLoggingEnabled: true,
       cloudWatchLogDestination: {
