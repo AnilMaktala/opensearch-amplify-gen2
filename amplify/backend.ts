@@ -36,6 +36,9 @@ const tableArn = backend.data.resources.tables["Todo"].tableArn;
 // Get the DynamoDB table name
 const tableName = backend.data.resources.tables["Todo"].tableName;
 
+//Get the region
+const region = openSearchStack.region;
+
 // Create the OpenSearch domain
 const openSearchDomain = new opensearch.Domain(
   openSearchStack,
@@ -160,11 +163,11 @@ dynamodb-pipeline:
             start_position: "LATEST"
           export:
             s3_bucket: "${s3BucketName}"
-            s3_region: "us-east-2"
+            s3_region: "${region}"
             s3_prefix: "${tableName}/"
       aws:
         sts_role_arn: "${openSearchIntegrationPipelineRole.roleArn}"
-        region: "us-east-2"
+        region: "${region}"
   sink:
     - opensearch:
         hosts:
@@ -180,7 +183,7 @@ dynamodb-pipeline:
         bulk_size: 4
         aws:
           sts_role_arn: "${openSearchIntegrationPipelineRole.roleArn}"
-          region: "us-east-2"
+          region: "${region}"
 `;
 
 // Create a CloudWatch log group
