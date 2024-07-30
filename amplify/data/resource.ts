@@ -21,9 +21,12 @@ const schema = a.schema({
       priority: a.enum(["low", "medium", "high"]),
     })
     .authorization((allow) => [allow.publicApiKey()]),
-  // searchTodos2: a.query().returns(a.ref("Todo").array()),
+  searchTodos2: a.query().returns(a.ref("Todo").array()),
   searchTodos5: a
     .query()
+    .arguments({
+      content: a.string(),
+    })
     .returns(a.ref("Todo").array())
     .authorization((allow) => [allow.publicApiKey()])
     .handler(
@@ -33,7 +36,6 @@ const schema = a.schema({
       })
     ),
 });
-
 export type Schema = ClientSchema<typeof schema>;
 
 export const data = defineData({
@@ -44,6 +46,7 @@ export const data = defineData({
       expiresInDays: 30,
     },
   },
+  // authorizationModes: {
+  //   defaultAuthorizationMode: "iam",
+  // },
 });
-
-

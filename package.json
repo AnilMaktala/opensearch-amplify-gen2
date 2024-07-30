@@ -15,8 +15,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^0.13.3",
-    "@aws-amplify/backend-cli": "^0.12.1",
+    "@aws-amplify/backend": "^1.0.4",
+    "@aws-amplify/backend-cli": "^1.1.1",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
@@ -30,7 +30,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "tsx": "^4.7.2",
-    "typescript": "^5.4.4",
+    "typescript": "^5.5.3",
     "vite": "^5.2.0"
   }
 }

@@ -1,7 +1,7 @@
 import { defineBackend } from "@aws-amplify/backend";
 import { auth } from "./auth/resource";
 import { data } from "./data/resource";
-import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb"
 import * as opensearch from "aws-cdk-lib/aws-opensearchservice";
 
 import { Stack } from "aws-cdk-lib";
@@ -9,7 +9,7 @@ import { storage } from "./storage/resource";
 
 import * as osis from "aws-cdk-lib/aws-osis";
 import * as iam from "aws-cdk-lib/aws-iam";
-import { PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { PolicyStatement, } from "aws-cdk-lib/aws-iam";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { RemovalPolicy } from "aws-cdk-lib";
 
@@ -46,7 +46,7 @@ const openSearchDomain = new opensearch.Domain(
   openSearchStack,
   "OpenSearchDomain",
   {
-    version: opensearch.EngineVersion.OPENSEARCH_2_3,
+    version: opensearch.EngineVersion.OPENSEARCH_2_11,
     nodeToNodeEncryption: true,
     encryptionAtRest: {
       enabled: true,
@@ -129,10 +129,13 @@ const indexMapping = {
       id: {
         type: "keyword",
       },
-      done: {
+      isDone: {
         type: "boolean",
       },
       content: {
+        type: "text",
+      },
+      priority: {
         type: "text",
       },
     },
