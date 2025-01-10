@@ -1,9 +1,11 @@
 import { util } from "@aws-appsync/utils";
+
 /**
  * Searches for documents by using an input term
  * @param {import('@aws-appsync/utils').Context} ctx the context
  * @returns {*} the request
  */
+
 export function request(ctx) {
   return {
     operation: "GET",
@@ -25,18 +27,10 @@ export function request(ctx) {
  * @param {import('@aws-appsync/utils').Context} ctx the context
  * @returns {*} the result
  */
+
 export function response(ctx) {
   if (ctx.error) {
     util.error(ctx.error.message, ctx.error.type);
   }
-  //add code to include total count
-
   return ctx.result.hits.hits.map((hit) => hit._source);
 }
-// export function response(ctx) {
-//   const entries = [];
-//   for (const entry of ctx.result.hits.hits) {
-//     entries.push(entry["_source"]);
-//   }
-//   return entries;
-// }

@@ -1,9 +1,9 @@
 {
   "auth": {
-    "user_pool_id": "us-west-2_E6sKdzIeW",
+    "user_pool_id": "us-west-2_4ly1pUmdO",
     "aws_region": "us-west-2",
-    "user_pool_client_id": "6afcpk3fqmneol096vubk77d4j",
-    "identity_pool_id": "us-west-2:43764dbc-34f4-4855-83b9-b0b6dcab0230",
+    "user_pool_client_id": "4ltt70qauv1nd9j0sj7vq4iiek",
+    "identity_pool_id": "us-west-2:2adce13f-2aab-47aa-8dec-558dbc13d8bf",
     "mfa_methods": [],
     "standard_required_attributes": [
       "email"
@@ -25,9 +25,9 @@
     "unauthenticated_identities_enabled": true
   },
   "data": {
-    "url": "https://q6kwb3ipnjgz3du3ld2tb4wscq.appsync-api.us-west-2.amazonaws.com/graphql",
+    "url": "https://pfbkzgtddfci5apdvymbex3vri.appsync-api.us-west-2.amazonaws.com/graphql",
     "aws_region": "us-west-2",
-    "api_key": "da2-w4nqpksaw5cwnamyv3jkpyqhdq",
+    "api_key": "da2-2b7vj5pslbebnetn77xfdugnxi",
     "default_authorization_type": "API_KEY",
     "authorization_types": [
       "AMAZON_COGNITO_USER_POOLS",
@@ -250,7 +250,7 @@
   },
   "storage": {
     "aws_region": "us-west-2",
-    "bucket_name": "amplify-opensearchamplify-predictionsforgen2bucket-v76zzoualmm1"
+    "bucket_name": "amplify-opensearchamplify-predictionsforgen2bucket-sfw2dhyumtj6"
   },
   "version": "1"
 }
