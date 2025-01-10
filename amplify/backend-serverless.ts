@@ -314,7 +314,7 @@ const openSearchIntegrationPipelineRole = new iam.Role(
   }
 );
 
-const collectionName = "dynamodb-etl-collection";
+const collectionName = OpenSearchServerlessCollection.name;
 // Opensearch encryption policy
 const encryptionPolicy = new oss.CfnSecurityPolicy(
   openSearchStack,
